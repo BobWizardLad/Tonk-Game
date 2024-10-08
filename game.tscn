@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dm4j0qfcuf2f2"]
+
+[ext_resource type="Script" path="res://level_handler.gd" id="1_5lpea"]
+[ext_resource type="PackedScene" uid="uid://d4bm6juvquocy" path="res://level01.tscn" id="2_v7gdj"]
+[ext_resource type="Script" path="res://player.gd" id="2_yq7k0"]
+[ext_resource type="Texture2D" uid="uid://bt152i7iwfn51" path="res://arcar_left.png" id="3_tgm3p"]
+
+[node name="Game" type="Node2D"]
+
+[node name="LevelHandler" type="Node2D" parent="."]
+script = ExtResource("1_5lpea")
+
+[node name="TileMapLayer" parent="." instance=ExtResource("2_v7gdj")]
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(319, 128)
+script = ExtResource("2_yq7k0")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("3_tgm3p")
+
+[node name="PlayerCamera" type="Camera2D" parent="."]
+position = Vector2(-63, 4)
+zoom = Vector2(0.8, 0.8)
