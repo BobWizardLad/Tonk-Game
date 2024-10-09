@@ -1,17 +1,21 @@
 extends Node2D
+class_name LevelHandler
 
 @onready var decay_timer: Timer = $Timer
 
 @export var current_map: TileMapLayer
-@export var warning_texture: CompressedTexture2D
+@export var warning_texture: AtlasTexture
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass
+func get_cell_local_to_map(coord: Vector2) -> Vector2i:
+	return current_map.local_to_map(coord)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func is_current_map_cell_exist(coord: Vector2i) -> bool:
+	if current_map.get_cell_source_id(coord) != -1:
+		return true
+	if current_map.get_cell_source_id(coord) == -1:
+		return false
+	else:
+		return false
 
 # Function to make random tiles on the map fade to black
 func fade_tile(tileset: TileMapLayer):
@@ -30,4 +34,5 @@ func remove_tile(tileset: TileMapLayer, tile_coord: Vector2i, warning: Sprite2D)
 	tileset.erase_cell(tile_coord)
 
 func _on_timer_timeout() -> void:
-	fade_tile(current_map)
+	if current_map.get_used_cells().size() > 0:
+		fade_tile(current_map)
