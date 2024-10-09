@@ -11,10 +11,11 @@
 atlas = ExtResource("3_amid1")
 region = Rect2(0, 128, 256, 128)
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("PLAYER", "LEVELHANDLER")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("PLAYER", "LEVELHANDLER", "SCORE")]
 script = ExtResource("1_patat")
 PLAYER = NodePath("Player")
 LEVELHANDLER = NodePath("LevelHandler")
+SCORE = NodePath("UI/Score")
 
 [node name="LevelHandler" type="Node2D" parent="." node_paths=PackedStringArray("current_map")]
 script = ExtResource("1_5lpea")
@@ -28,8 +29,9 @@ autostart = true
 [node name="TileMapLayer" parent="LevelHandler" instance=ExtResource("2_v7gdj")]
 
 [node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(319, 128)
+position = Vector2(125, 191)
 script = ExtResource("2_yq7k0")
+metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 texture = ExtResource("3_tgm3p")
@@ -38,4 +40,14 @@ texture = ExtResource("3_tgm3p")
 position = Vector2(-63, 4)
 zoom = Vector2(0.8, 0.8)
 
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Score" type="Label" parent="UI"]
+offset_left = 32.0
+offset_right = 73.0
+offset_bottom = 99.0
+theme_override_font_sizes/font_size = 72
+text = "0"
+
+[connection signal="tile_removed" from="LevelHandler" to="." method="_on_level_handler_tile_removed"]
 [connection signal="timeout" from="LevelHandler/Timer" to="LevelHandler" method="_on_timer_timeout"]

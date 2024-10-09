@@ -6,6 +6,10 @@ class_name LevelHandler
 @export var current_map: TileMapLayer
 @export var warning_texture: AtlasTexture
 
+var will_remove_tiles: bool = true
+
+signal tile_removed
+
 func get_cell_local_to_map(coord: Vector2) -> Vector2i:
 	return current_map.local_to_map(coord)
 
@@ -32,7 +36,8 @@ func fade_tile(tileset: TileMapLayer):
 func remove_tile(tileset: TileMapLayer, tile_coord: Vector2i, warning: Sprite2D):
 	warning.queue_free()
 	tileset.erase_cell(tile_coord)
+	emit_signal("tile_removed")
 
 func _on_timer_timeout() -> void:
-	if current_map.get_used_cells().size() > 0:
+	if current_map.get_used_cells().size() > 0 and will_remove_tiles:
 		fade_tile(current_map)
