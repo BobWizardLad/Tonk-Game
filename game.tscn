@@ -13,6 +13,10 @@ script = ExtResource("1_5lpea")
 current_map = NodePath("TileMapLayer")
 warning_texture = ExtResource("2_iirjq")
 
+[node name="Timer" type="Timer" parent="LevelHandler"]
+wait_time = 2.0
+autostart = true
+
 [node name="TileMapLayer" parent="LevelHandler" instance=ExtResource("2_v7gdj")]
 
 [node name="Player" type="CharacterBody2D" parent="."]
@@ -26,3 +30,5 @@ texture = ExtResource("3_tgm3p")
 [node name="PlayerCamera" type="Camera2D" parent="."]
 position = Vector2(-63, 4)
 zoom = Vector2(0.8, 0.8)
+
+[connection signal="timeout" from="LevelHandler/Timer" to="LevelHandler" method="_on_timer_timeout"]
