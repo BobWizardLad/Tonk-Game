@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://chcwiivcy6erh"]
+
+[ext_resource type="Script" path="res://game_manager.gd" id="1_pnys1"]
+[ext_resource type="PackedScene" uid="uid://dqq8em5x4pex" path="res://main_menu.tscn" id="2_a114l"]
+[ext_resource type="PackedScene" uid="uid://dm4j0qfcuf2f2" path="res://game.tscn" id="3_1n7e0"]
+
+[node name="GameManager" type="Node2D"]
+script = ExtResource("1_pnys1")
+
+[node name="MainMenu" parent="." instance=ExtResource("2_a114l")]
+
+[node name="Game" parent="." instance=ExtResource("3_1n7e0")]
+visible = false
+
+[connection signal="button_down" from="MainMenu/VBoxContainer/Play" to="." method="_on_play_button_down"]
+[connection signal="button_down" from="MainMenu/VBoxContainer/LocalHighScore" to="." method="_on_local_high_score_button_down"]
+[connection signal="button_down" from="MainMenu/VBoxContainer/Exit" to="." method="_on_exit_button_down"]
+
+[editable path="MainMenu"]

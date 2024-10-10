@@ -4,6 +4,9 @@ extends Node2D
 @export var LEVELHANDLER: LevelHandler
 @export var SCORE: Label
 
+var save_filepath = "res://highscores.json"
+var scores: Array
+
 var score: int = 0
 var game_active: bool = true
 
