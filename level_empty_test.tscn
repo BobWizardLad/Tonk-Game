@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcmv5vwtghm3p"]
+
+[ext_resource type="Texture2D" uid="uid://c6wyb2cyw363l" path="res://Hex.png" id="1_ytxmd"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_y81lo"]
+texture = ExtResource("1_ytxmd")
+texture_region_size = Vector2i(256, 128)
+0:0/animation_columns = 1
+0:0/0 = 0
+0:1/animation_columns = 1
+0:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_1tsmc"]
+tile_shape = 3
+tile_offset_axis = 1
+tile_size = Vector2i(256, 128)
+sources/1 = SubResource("TileSetAtlasSource_y81lo")
+
+[node name="TileMapLayer" type="TileMapLayer"]
+tile_map_data = PackedByteArray(0, 0, 255, 255, 255, 255, 1, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_1tsmc")

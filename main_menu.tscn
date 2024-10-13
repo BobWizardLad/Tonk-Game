@@ -1,15 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://dqq8em5x4pex"]
+[gd_scene load_steps=4 format=3 uid="uid://dqq8em5x4pex"]
 
 [ext_resource type="Theme" uid="uid://dx3mf0lypmtom" path="res://Title_Theme.tres" id="1_j0oat"]
+[ext_resource type="Script" path="res://main_menu.gd" id="1_urs6p"]
 [ext_resource type="Theme" uid="uid://c8ic43h2818k" path="res://button_theme.tres" id="2_fs5m8"]
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("play_button", "HS_button", "exit_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_urs6p")
+play_button = NodePath("VBoxContainer/Play")
+HS_button = NodePath("VBoxContainer/LocalHighScore")
+exit_button = NodePath("VBoxContainer/Exit")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -49,3 +54,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("2_fs5m8")
 text = "Exit"
+
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
+[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]

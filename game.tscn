@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://level_handler.gd" id="1_5lpea"]
 [ext_resource type="Script" path="res://game.gd" id="1_patat"]
-[ext_resource type="PackedScene" uid="uid://d4bm6juvquocy" path="res://level01.tscn" id="2_v7gdj"]
 [ext_resource type="Script" path="res://player.gd" id="2_yq7k0"]
 [ext_resource type="Texture2D" uid="uid://c6wyb2cyw363l" path="res://Hex.png" id="3_amid1"]
 [ext_resource type="Texture2D" uid="uid://bt152i7iwfn51" path="res://arcar_left.png" id="3_tgm3p"]
+[ext_resource type="PackedScene" uid="uid://dcmv5vwtghm3p" path="res://level_empty_test.tscn" id="4_xv0u1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6lgsq"]
 atlas = ExtResource("3_amid1")
@@ -22,14 +22,10 @@ script = ExtResource("1_5lpea")
 current_map = NodePath("TileMapLayer")
 warning_texture = SubResource("AtlasTexture_6lgsq")
 
-[node name="Timer" type="Timer" parent="LevelHandler"]
-wait_time = 2.0
-autostart = true
-
-[node name="TileMapLayer" parent="LevelHandler" instance=ExtResource("2_v7gdj")]
+[node name="TileMapLayer" parent="LevelHandler" instance=ExtResource("4_xv0u1")]
 
 [node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(125, 191)
+position = Vector2(124, 57)
 script = ExtResource("2_yq7k0")
 metadata/_edit_group_ = true
 
@@ -48,5 +44,5 @@ offset_bottom = -539.0
 theme_override_font_sizes/font_size = 72
 text = "0"
 
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="tile_removed" from="LevelHandler" to="." method="_on_level_handler_tile_removed"]
-[connection signal="timeout" from="LevelHandler/Timer" to="LevelHandler" method="_on_timer_timeout"]

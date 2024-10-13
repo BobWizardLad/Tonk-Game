@@ -1,8 +1,6 @@
 extends Node2D
 class_name LevelHandler
 
-@onready var decay_timer: Timer = $Timer
-
 @export var current_map: TileMapLayer
 @export var warning_texture: AtlasTexture
 
@@ -16,6 +14,7 @@ signal tile_removed
 func get_cell_local_to_map(coord: Vector2) -> Vector2i:
 	return current_map.local_to_map(coord)
 
+# Update the decay speed of a tile to get faster as the # of tles gets smaller
 func _process(_delta):
 	if current_map.get_used_cells().size() < 15:
 		decay_speed = DECAY_TIME * 0.4
@@ -33,23 +32,21 @@ func is_current_map_cell_exist(coord: Vector2i) -> bool:
 		return false
 
 # Function to make random tiles on the map fade to black
-func fade_tile(tileset: TileMapLayer):
-	cell_coord = tileset.get_used_cells()[randi_range(0, tileset.get_used_cells().size()-1)]
-	var tween = get_tree().create_tween()
-	var warn = Sprite2D.new()
-	warn.modulate = Color(1.0, 1.0, 1.0, 0.0)
-	warn.texture = warning_texture
-	warn.position = current_map.map_to_local(cell_coord)
-	add_child(warn)
-	tween.tween_property(warn, "modulate", Color(1.0, 1.0, 1.0, 1.0), decay_speed * 0.8)
-	tween.tween_callback(remove_tile.bind(tileset, cell_coord, warn))
+func fade_tile(tileset: TileMapLayer = current_map):
+	if tileset.get_used_cells().size() > 0:
+		cell_coord = tileset.get_used_cells()[randi_range(0, tileset.get_used_cells().size()-1)]
+		var tween = get_tree().create_tween()
+		var warn = Sprite2D.new()
+		warn.modulate = Color(1.0, 1.0, 1.0, 0.0)
+		warn.texture = warning_texture
+		warn.position = current_map.map_to_local(cell_coord)
+		add_child(warn)
+		tween.tween_property(warn, "modulate", Color(1.0, 1.0, 1.0, 1.0), decay_speed * 0.8)
+		tween.tween_callback(remove_tile.bind(cell_coord, warn, tileset))
+	else:
+		pass
 
-func remove_tile(tileset: TileMapLayer, tile_coord: Vector2i, warning: Sprite2D):
+func remove_tile(tile_coord: Vector2i, warning: Sprite2D, tileset: TileMapLayer = current_map):
 	warning.queue_free()
 	tileset.erase_cell(tile_coord)
 	emit_signal("tile_removed")
-
-func _on_timer_timeout() -> void:
-	decay_timer.wait_time = decay_speed
-	if current_map.get_used_cells().size() > 0 and will_remove_tiles:
-		fade_tile(current_map)

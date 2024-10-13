@@ -5,24 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://dm4j0qfcuf2f2" path="res://game.tscn" id="3_1n7e0"]
 [ext_resource type="PackedScene" uid="uid://ctn1tbwrpito2" path="res://game_over.tscn" id="4_f35wh"]
 
-[node name="GameManager" type="Node2D"]
+[node name="GameManager" type="Node"]
 script = ExtResource("1_pnys1")
-
-[node name="MainMenu" parent="." instance=ExtResource("2_a114l")]
-
-[node name="Game" parent="." instance=ExtResource("3_1n7e0")]
-visible = false
-
-[node name="GameOver" parent="." instance=ExtResource("4_f35wh")]
-visible = false
-
-[connection signal="button_down" from="MainMenu/VBoxContainer/Play" to="." method="_on_play_button_down"]
-[connection signal="button_down" from="MainMenu/VBoxContainer/LocalHighScore" to="." method="_on_local_high_score_button_down"]
-[connection signal="button_down" from="MainMenu/VBoxContainer/Exit" to="." method="_on_exit_button_down"]
-[connection signal="player_died" from="Game/Player" to="." method="_on_player_player_died"]
-[connection signal="button_down" from="GameOver/VBoxContainer/Play" to="." method="_on_replay_button_down"]
-[connection signal="button_down" from="GameOver/VBoxContainer/Exit" to="." method="_on_back_to_menu_button_down"]
-
-[editable path="MainMenu"]
-[editable path="Game"]
-[editable path="GameOver"]
+game_scene = ExtResource("3_1n7e0")
+main_menu_scene = ExtResource("2_a114l")
+game_over_scene = ExtResource("4_f35wh")

@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 var sprite_down: CompressedTexture2D = load("res://arcar-front.png")
 var sprite_up: CompressedTexture2D = load("res://arcar-back.png")
@@ -10,8 +11,6 @@ var sprite_right_down: CompressedTexture2D = load("res://arcar_right_down.png")
 var sprite_right_up: CompressedTexture2D = load("res://arcar_right_up.png")
 
 var SPEED: int = 200
-
-signal player_died
 
 # Player Input Stream - Movement
 func _process(delta: float) -> void:
