@@ -9,6 +9,7 @@ class_name LevelHandler
 var will_remove_tiles: bool = true
 var DECAY_TIME: float = 3.00
 var decay_speed: float = DECAY_TIME
+var cell_coord: Vector2i
 
 signal tile_removed
 
@@ -33,7 +34,7 @@ func is_current_map_cell_exist(coord: Vector2i) -> bool:
 
 # Function to make random tiles on the map fade to black
 func fade_tile(tileset: TileMapLayer):
-	var cell_coord = tileset.get_used_cells()[randi_range(0, tileset.get_used_cells().size()-1)]
+	cell_coord = tileset.get_used_cells()[randi_range(0, tileset.get_used_cells().size()-1)]
 	var tween = get_tree().create_tween()
 	var warn = Sprite2D.new()
 	warn.modulate = Color(1.0, 1.0, 1.0, 0.0)

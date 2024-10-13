@@ -11,6 +11,8 @@ var sprite_right_up: CompressedTexture2D = load("res://arcar_right_up.png")
 
 var SPEED: int = 200
 
+signal player_died
+
 # Player Input Stream - Movement
 func _process(delta: float) -> void:
 	var direction = Vector2(Input.get_axis("ui_left", "ui_right"), Input.get_axis("ui_up", "ui_down")).normalized()
